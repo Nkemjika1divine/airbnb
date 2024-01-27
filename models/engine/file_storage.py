@@ -12,5 +12,5 @@ class FileStorage:
         rep = obj.to_dict()["__class__"] # get the class of the object
         the_id = obj.id # extract the id of the object
         obj_key = f"{rep}.{the_id}" # create a string containing the new key
-        new  = {obj_key: obj}
-        self.all().update(new)
+        new  = {obj_key: obj} #make the string the key of the object
+        self.all().update(new) #update the new data
