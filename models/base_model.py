@@ -20,7 +20,7 @@ class BaseModel:
 
     def __str__(self):
         """print the name of the class, id and dctionary representation"""
-        return "[{}] ({}) {}".format(self.__cls__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """updates the current time at updated_at"""
