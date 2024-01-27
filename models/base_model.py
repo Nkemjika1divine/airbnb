@@ -10,7 +10,7 @@ class BaseModel:
                 if key == __class__:
                     continue
                 if key == "updated_at" or key == "created_at":
-                    setattr(self, key, datetime.strptime("%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(self, key, datetime.strptime("%Y-%m-%dT%H:%M:%S.%f")) # create a dictionary of dictionaries
                 else:
                     setattr(self, key, value)
         else:
