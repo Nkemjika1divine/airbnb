@@ -4,6 +4,7 @@ import json
 import os
 
 class FileStorage:
+    # private class attributes
     __file_path = "file.json"
     __objects = {} # this is where you store the objects when it's not in the file storage. you also pull the objects into this place when you want to use it
 
