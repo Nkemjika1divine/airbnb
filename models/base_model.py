@@ -5,6 +5,7 @@ from datetime import datetime
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
+        from models.__init__ import storage # this is to avoid circular imports dangerous for programs
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
@@ -17,14 +18,17 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """print the name of the class, id and dctionary representation"""
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
+        from models.__init__ import storage
         """updates the current time at updated_at"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         dict_obj = self.__dict__.copy() # copy the dictionary
