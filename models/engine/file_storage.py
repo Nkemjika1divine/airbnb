@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
 import json
 import os
 
@@ -8,8 +7,13 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {} # this is where you store the objects when it's not in the file storage. you also pull the objects into this place when you want to use it
 
-    def all(self):
-        return FileStorage.__objects # returns all the objects in the file
+    def all(self, cls=None):
+        if not cls:
+            return self.__objects
+        result = {}
+        for key, value in self.__objects.items():
+            if type(value) == cls:
+                result[key] = value
     
     def new(self, obj):
         rep = obj.to_dict()["__class__"] # get the class of the object
@@ -28,6 +32,14 @@ class FileStorage:
             json.dump(obj, f) # then dump the object into the file
     
     def reload(self):
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+        
         if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as f:
                 obj_string = json.load(f) # load the content of the json file into a variable
@@ -36,5 +48,22 @@ class FileStorage:
                     cls = eval(class_name) # evaluate to ensure that the class actually exists in your program
                     obj = cls(**value) # if it exists, make it a key for the values associateed with it
                     self.new(obj) # make it an addition to the object file
+
+    def delete(self, obj=None):
+        # this deletes an object if it exists
+        if obj is not None:
+            obj_key = "{}.{}".format(type(obj).__name__, obj.id) # get the class name and the id to create a key
+            if obj_key in self.__objects: # check if the key exists and delete if it exists
+                del self.__objects[obj_key]
+            self.save()
+        else:
+            return
+
+
+
+
+
+
+
 
 
