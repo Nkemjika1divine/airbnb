@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from models.base_model import BaseModel
 import json
 import os
 
@@ -32,14 +33,13 @@ class FileStorage:
             json.dump(obj, f) # then dump the object into the file
     
     def reload(self):
-        from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
         from models.state import State
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-        
+
         if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as f:
                 obj_string = json.load(f) # load the content of the json file into a variable
