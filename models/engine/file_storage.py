@@ -33,12 +33,12 @@ class FileStorage:
             json.dump(obj, f) # then dump the object into the file
     
     def reload(self):
-        from models.user import User
+        """from models.user import User
         from models.place import Place
         from models.state import State
         from models.city import City
         from models.amenity import Amenity
-        from models.review import Review
+        from models.review import Review"""
 
         if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as f:
@@ -49,7 +49,7 @@ class FileStorage:
                     obj = cls(**value) # if it exists, make it a key for the values associateed with it
                     self.new(obj) # make it an addition to the object file
 
-    def delete(self, obj=None):
+    """def delete(self, obj=None):
         # this deletes an object if it exists
         if obj is not None:
             obj_key = "{}.{}".format(type(obj).__name__, obj.id) # get the class name and the id to create a key
@@ -57,7 +57,7 @@ class FileStorage:
                 del self.__objects[obj_key]
             self.save()
         else:
-            return
+            return"""
 
 
 
