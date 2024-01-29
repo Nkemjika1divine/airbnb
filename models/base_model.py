@@ -3,6 +3,10 @@
 import uuid
 from datetime import datetime
 
+
+Base = declarative_base()
+
+
 class BaseModel:
     def __init__(self, *args, **kwargs):
         from models.__init__ import storage # this is to avoid circular imports dangerous for programs
